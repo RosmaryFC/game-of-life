@@ -17,13 +17,17 @@ public class Main {
         Scanner input = new Scanner (System.in);
         int numChosen = input.nextInt();
         GameOfLife gameOfLife = new GameOfLife(numChosen);
+        int generation = 0;
+        System.out.println("Generation: " + generation);
         gameOfLife.initialize();
 
         System.out.println("Would you like to see the next Generation? Type 'y' and press Enter");
         while(input.next().equals("y") ){
             gameOfLife.getNextGeneration();
+            generation++;
 
             if(gameOfLife.worldIsOccupied){
+                System.out.println("Generation: " + generation);
                 gameOfLife.displayGeneration();
                 System.out.println("Would you like to see the next Generation? Type 'y' and press Enter");
             }else{
