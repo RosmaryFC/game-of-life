@@ -4,7 +4,7 @@ package com.rosmary.project.gol;
  * Created by Rosemary on 4/16/17.
  */
 class Coordinate {
-
+//TODO: possible delete class, not needed
     private int row;
     private int column;
 

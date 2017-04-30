@@ -11,18 +11,29 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
 
         System.out.println("Welcome to the Game Of Life, choose a number 1 - 5");
-        GameOfLife gameOfLife = new GameOfLife(1);
+
+        Scanner input = new Scanner (System.in);
+        int numChosen = input.nextInt();
+        GameOfLife gameOfLife = new GameOfLife(numChosen);
         gameOfLife.initialize();
 
-//        Scanner input = new Scanner(System.in);
-//        int dataInt = input.nextInt();
-//        //todo: create loop for when user does not type correct input
-//        GameOfLife gameOfLife = new GameOfLife(dataInt);
-//
-//        input.close();
+        System.out.println("Would you like to see the next Generation? Type 'y' and press Enter");
+        while(input.next().equals("y") ){
+            gameOfLife.getNextGeneration();
+
+            if(gameOfLife.worldIsOccupied){
+                gameOfLife.displayGeneration();
+                System.out.println("Would you like to see the next Generation? Type 'y' and press Enter");
+            }else{
+                gameOfLife.displayMessage("World Is Vacant");
+                break;
+            }
+        }
+
+        System.out.print("Thank you for playing.");
+        input.close();
     }
 
 

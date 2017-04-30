@@ -1,8 +1,6 @@
 package com.rosmary.project.gol;
 
 import com.rosmary.project.GameOfLifeUI;
-import com.rosmary.project.ZerothGenerationProvider;
-
 /**
  * Created by Rosemary on 4/16/17.
  */
@@ -10,9 +8,26 @@ public class GameOfLife implements GameOfLifeUI{
 
     private String mDataFile;
     private Generation mGeneration;
+    public boolean worldIsOccupied;
 
     public GameOfLife(int dataInt){
         this.mDataFile = getDataFile(dataInt);
+    }
+
+    public boolean isWorldIsOccupied() {
+        return worldIsOccupied;
+    }
+
+    private void setWorldIsOccupied(boolean worldIsOccupied) {
+        this.worldIsOccupied = worldIsOccupied;
+    }
+
+    public Generation getmGeneration() {
+        return mGeneration;
+    }
+
+    public void setmGeneration(Generation mGeneration) {
+        this.mGeneration = mGeneration;
     }
 
     private static String getDataFile(int dataInt) {
@@ -34,22 +49,36 @@ public class GameOfLife implements GameOfLifeUI{
 
     public void initialize(){
         mGeneration = new Generation(mDataFile);
+        displayGeneration();
     }
 
-    public void getNextGeneration(Generation currentGeneration){
 
+    public void getNextGeneration(){
+        mGeneration.setWorld(mGeneration.getNextWorld());
+        setWorldIsOccupied(mGeneration.mNextWorldIsOccupied);
     }
 
     @Override
-    public void displayGeneration(boolean[][] world) {
-        
-
+    public void displayGeneration() {
+        //variables start at one to prevent print out of border padding booleans
+        for(int row = 1; row <= Generation.ROWS; row++){
+            for(int column = 1; column <= Generation.COLUMNS; column ++){
+                if(mGeneration.getWorld()[row][column]){
+                    System.out.print(Generation.OCCUPIED);
+                }else {
+                    System.out.print(Generation.VACANT);
+                }
+            }
+            System.out.println();
+        }
     }
 
+    /**
+     * message displayed when no more worlds are available, when all spots are vacant, then game is finished
+     */
     @Override
     public void displayMessage(String message) {
-
+        System.out.println(message);
     }
-
 
 }
